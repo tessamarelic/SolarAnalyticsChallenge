@@ -11,7 +11,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {CountriesService} from '../../services/countries.service';
 import {CountryDetailsComponent} from './country-details/country-details.component';
 import {RouterModule} from '@angular/router';
-import {CountryDetailsRoutingModule} from './country-details/country-details-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import {CountryDetailsRoutingModule} from './country-details/country-details-rou
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    RouterModule,
-    CountryDetailsRoutingModule
+    RouterModule
   ],
   exports: [
     HomeComponent,
