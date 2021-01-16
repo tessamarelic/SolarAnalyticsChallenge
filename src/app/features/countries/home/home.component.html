@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="font-bold main-heading col-12">
+        Where in the world?
+      </div>
+  </div>
+
+  <div class="row top-bar">
+    <mat-form-field appearance="outline" class="col-xs-12 col-sm-4" color="inputColor">
+      <mat-label>Search for a country</mat-label>
+      <input matInput
+             placeholder="Search"
+             type="text"
+            [formControl]="searchFormControl"
+            (keyup)="filterCountriesList()">
+      <mat-icon matPrefix class="margin-right-10">search</mat-icon>
+    </mat-form-field>
+    <div class="col-xs-12 col-sm-4"></div>
+      <mat-form-field appearance="outline" class="col-xs-12 col-sm-4">
+        <mat-label>Filter by Region</mat-label>
+        <mat-select [formControl]="selectRegionFormControl"
+        (selectionChange)="filterCountriesByRegion()">
+          <mat-option *ngFor="let region of listOfRegions" [value]="region">
+            {{region}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+
+  <div class="row body">
+  <div *ngFor="let country of filteredListOfCountries | async" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+    <mat-card (click)="showCountryDetails(country)" class="custom">
+      <img [src]="country.flag" alt="{{country.name}} flag">
+      <div class="country-heading font-bold margin-left-25 margin-bottom-10">
+        {{country.name}}
+      </div>
+      <div class="margin-left-25 line-spacing">
+        <span class="font-semi-bold">Population:</span> {{country.population}}<br>
+        <span class="font-semi-bold">Region:</span> {{country.region}}<br>
+        <span class="font-semi-bold">Capital:</span> {{country.capital}}
+      </div>
+    </mat-card>
+
+  </div>
+  </div>
+</div>
