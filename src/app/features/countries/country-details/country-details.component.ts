@@ -30,7 +30,6 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
       this.selectedCountryCode = this.listOfCodes[0];
       this.getCountriesByCode();
     });
-
   }
 
   ngOnDestroy(): void {
@@ -42,7 +41,8 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     for (const code of this.listOfCodes) {
       codeAPIParamString += `${code};`;
     }
-    this.countrySubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString).subscribe(countries => {
+    this.countrySubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
+      .subscribe(countries => {
       this.listOfCountries = countries as Country[];
       this.countryToDisplay = this.listOfCountries.find(country => country.alpha3Code === this.selectedCountryCode);
       this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);

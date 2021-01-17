@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './features/countries/home/home.component';
 import {CountryDetailsComponent} from './features/countries/country-details/country-details.component';
+import {CountriesResolver} from './features/countries/countries.resolver';
 
 export const routes: Routes = [
   {
@@ -11,7 +12,10 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    resolve: {
+      home: CountriesResolver
+    }
   },
   {
     path: 'country-details',
@@ -24,6 +28,7 @@ export const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CountriesResolver]
 })
 export class AppRoutingModule { }
