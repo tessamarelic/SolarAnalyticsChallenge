@@ -26,15 +26,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectRegionFormControl.setValue('');
     this.getCountriesData();
   }
 
   getCountriesData(): void {
     this.countriesService.getCountries().subscribe(countries => {
       this.countries = countries as Country[];
-      this.listOfRegions = this.countries.map(country => {
-        return country.region;
-      });
+      const setOfRegions = new Set<string>();
+      for (const country of this.countries){
+        if (!!country.region){
+          setOfRegions.add(country.region);
+        }
+      }
+      this.listOfRegions = Array.from(setOfRegions).sort();
       this.filteredListOfCountries = of(this.countries);
     }, error => {
       console.error(error);
@@ -43,10 +48,6 @@ export class HomeComponent implements OnInit {
 
   filterCountriesList(): void {
     const chosenCountry = this.searchFormControl.value.trim();
-    if (chosenCountry === undefined) {
-      this.filteredListOfCountries = of(this.countries);
-      return;
-    }
     if (this.checkValueToFilter(chosenCountry)){
       this.filteredListOfCountries = of(this.countries.filter((country) => {
         return country.name.toLowerCase().indexOf(chosenCountry.toLowerCase()) > -1;
@@ -64,7 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkValueToFilter(valueToCheck: string): boolean{
-    if (valueToCheck === undefined) {
+    if (!valueToCheck) {
       this.filteredListOfCountries = of(this.countries);
       return false;
     }

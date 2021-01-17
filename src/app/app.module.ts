@@ -4,9 +4,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
-import { CountryDetailsComponent } from './features/countries/country-details/country-details.component';
 import {CountriesModule} from './features/countries/countries.module';
-import {RouterModule} from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import {RouterModule} from '@angular/router';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    CountriesModule,
-    RouterModule
+    CountriesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,8 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-/*html, body {*/
-/*  height: 100%;*/
-/*}*/
-
-* {
-  margin: 0;
+html, body {
+  height: 100%;
+  margin: auto;
   font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
   background-color: hsl(0, 0%, 98%);
   max-width: 1440px;
