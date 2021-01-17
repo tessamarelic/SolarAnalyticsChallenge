@@ -73,8 +73,6 @@ export class HomeComponent implements OnInit {
   }
 
   showCountryDetails(country: Country): void {
-    console.log('in function');
-    console.log(country);
     this.router.navigate(['country-details']);
   }
 }
