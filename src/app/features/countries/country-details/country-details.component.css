@@ -60,13 +60,17 @@
 button {
   font-family: Nunito Sans, "Helvetica Neue", sans-serif;
   padding: 0 10px 0 10px;
-  width: 120px;
+  min-width: 120px;
   margin-bottom: 10px;
-  margin-right: 5px;
+  margin-right: 6px;
   overflow: hidden;
   display: inline;
   text-after-overflow: ellipsis;
   font-size: 16px;
   white-space: nowrap;
+}
+
+.back-button {
+  width: 120px;
 }
 
