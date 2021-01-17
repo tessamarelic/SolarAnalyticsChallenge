@@ -10,14 +10,17 @@ html, body {
 
 .font-light {
   font-weight: 300;
+  font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
 }
 
 .font-bold {
   font-weight: 800;
+  font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
 }
 
 .font-semi-bold {
   font-weight: 600;
+  font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
 }
 
 .white {

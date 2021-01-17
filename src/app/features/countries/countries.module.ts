@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home/home.component';
 import {MatCardModule} from '@angular/material/card';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -11,6 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {CountriesService} from '../../services/countries.service';
 import {CountryDetailsComponent} from './country-details/country-details.component';
 import {RouterModule} from '@angular/router';
+import {SharedModule} from '../../shared/shared.module';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {RouterModule} from '@angular/router';
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    RouterModule
+    MatButtonModule,
+    RouterModule,
+    SharedModule
   ],
   exports: [
     HomeComponent,
@@ -37,7 +41,8 @@ import {RouterModule} from '@angular/router';
     MatIconModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [
     CountriesService

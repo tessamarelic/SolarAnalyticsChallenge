@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class CountriesService {
   readonly countriesUrl = 'https://restcountries.eu/rest/v2/all';
+  readonly countriesAlphaCodeUrl = 'https://restcountries.eu/rest/v2/alpha/';
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +17,13 @@ export class CountriesService {
       responseType: 'json'
     };
     return this.http.get(this.countriesUrl);
+  }
+
+  getCountriesByAlphaCode(stringOfcodes: string): Observable<object> {
+    const httpOptions: object = {
+      observe: 'response' as 'body',
+      responseType: 'json'
+    };
+    return this.http.get(`https://restcountries.eu/rest/v2/alpha?codes=${stringOfcodes}`);
   }
 }

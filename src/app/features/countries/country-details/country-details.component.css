@@ -1,0 +1,72 @@
+.body {
+  padding: 0 50px 0 50px;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: Nunito Sans, "Helvetica Neue", sans-serif;
+}
+
+@media only screen and (max-width: 375px) {
+  .body {
+    padding: 0 20px 0 20px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: Nunito Sans, "Helvetica Neue", sans-serif;
+  }
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.margin-right-5 {
+  margin-right: 5px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-left-60 {
+  margin-left: 60px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
+}
+
+.imgStyle {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-right: 60px;
+}
+
+.line-height {
+  line-height: 30px;
+}
+
+.heading {
+  font-size: 30px;
+}
+
+button {
+  font-family: Nunito Sans, "Helvetica Neue", sans-serif;
+  padding: 0 10px 0 10px;
+  width: 120px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  overflow: hidden;
+  display: inline;
+  text-after-overflow: ellipsis;
+  font-size: 16px;
+  white-space: nowrap;
+}
+

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CountriesService} from '../../../services/countries.service';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
 import {Country} from '../../../models/country.model';
 import {FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,13 +10,14 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   countries = new Array<Country>();
   filteredListOfCountries = new Observable<Country[]>();
   searchFormControl = new FormControl('');
   selectRegionFormControl = new FormControl('');
   inputColor = 'hsl(0, 0%, 52%)';
   listOfRegions = new Array<string>();
+  countriesSubscription = new Subscription();
 
   constructor(
     private countriesService: CountriesService,
@@ -30,8 +31,12 @@ export class HomeComponent implements OnInit {
     this.getCountriesData();
   }
 
+  ngOnDestroy(): void{
+    this.countriesSubscription.unsubscribe();
+  }
+
   getCountriesData(): void {
-    this.countriesService.getCountries().subscribe(countries => {
+    this.countriesSubscription = this.countriesService.getCountries().subscribe(countries => {
       this.countries = countries as Country[];
       const setOfRegions = new Set<string>();
       for (const country of this.countries){
@@ -73,6 +78,8 @@ export class HomeComponent implements OnInit {
   }
 
   showCountryDetails(country: Country): void {
-    this.router.navigate(['country-details']);
+    let codeList = new Array<string>();
+    codeList = [country.alpha3Code, ...country.borders];
+    this.router.navigate(['country-details'], {queryParams: {codes: codeList}});
   }
 }
