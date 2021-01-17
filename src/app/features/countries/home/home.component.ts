@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   filteredListOfCountries = new Observable<Country[]>();
   searchFormControl = new FormControl('');
   selectRegionFormControl = new FormControl('');
-  inputColor = 'hsl(0, 0%, 52%)';
   listOfRegions = new Array<string>();
   countriesSubscription = new Subscription();
 
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCountriesData();
   }
 
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.countriesSubscription.unsubscribe();
   }
 
@@ -39,8 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.countriesSubscription = this.countriesService.getCountries().subscribe(countries => {
       this.countries = countries as Country[];
       const setOfRegions = new Set<string>();
-      for (const country of this.countries){
-        if (!!country.region){
+      for (const country of this.countries) {
+        if (!!country.region) {
           setOfRegions.add(country.region);
         }
       }
@@ -53,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   filterCountriesList(): void {
     const chosenCountry = this.searchFormControl.value.trim();
-    if (this.checkValueToFilter(chosenCountry)){
+    if (this.checkValueToFilter(chosenCountry)) {
       this.filteredListOfCountries = of(this.countries.filter((country) => {
         return country.name.toLowerCase().indexOf(chosenCountry.toLowerCase()) > -1;
       }));
@@ -62,14 +61,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   filterCountriesByRegion(): void {
     const region = this.selectRegionFormControl.value;
-    if (this.checkValueToFilter(region)){
+    if (this.checkValueToFilter(region)) {
       this.filteredListOfCountries = of(this.countries.filter((country) => {
         return country.region.toLowerCase().indexOf(region.toLowerCase()) > -1;
       }));
     }
   }
 
-  checkValueToFilter(valueToCheck: string): boolean{
+  checkValueToFilter(valueToCheck: string): boolean {
     if (!valueToCheck) {
       this.filteredListOfCountries = of(this.countries);
       return false;
