@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TopPanelComponent} from './top-panel/top-panel.component';
-import {MatButtonModule} from '@angular/material/button';
 import {ThemeService} from '../services/theme.service';
 import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -12,10 +12,13 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   exports: [
-    TopPanelComponent
+    TopPanelComponent,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     ThemeService

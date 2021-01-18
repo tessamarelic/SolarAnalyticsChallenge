@@ -30,7 +30,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatSelectModule,
     RouterModule,
     SharedModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   exports: [
     HomeComponent,
@@ -39,7 +40,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     CountriesService
