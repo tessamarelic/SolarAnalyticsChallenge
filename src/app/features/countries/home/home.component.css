@@ -119,7 +119,11 @@ input {
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: var(--text-default);
+  color: var(--input-default);
+}
+
+::ng-deep .mat-select-value-text {
+  color: var(--input-default);
 }
 
 
