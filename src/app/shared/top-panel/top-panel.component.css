@@ -44,14 +44,8 @@
     background-color: var(--element-default);
     color: var(--text-default);
     text-align: center;
-    width: 5px;
   }
-
-@media only screen and (max-width: 375px) {
-  .button {
-    width: 2px;
-  }
-}
+  
 
 
 
