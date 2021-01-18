@@ -77,8 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   showCountryDetails(country: Country): void {
-    let codeList = new Array<string>();
-    codeList = [country.alpha3Code, ...country.borders];
+    const codeList = [country.alpha3Code, ...country.borders];
     this.router.navigate(['country-details'], {queryParams: {codes: codeList}});
   }
 }

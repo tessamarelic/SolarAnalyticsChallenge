@@ -25,11 +25,9 @@ import {MatButtonModule} from '@angular/material/button';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    MatButtonModule,
     RouterModule,
     SharedModule
   ],
@@ -38,11 +36,9 @@ import {MatButtonModule} from '@angular/material/button';
     CountryDetailsComponent,
     MatCardModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule,
-    MatButtonModule
+    MatSelectModule
   ],
   providers: [
     CountriesService

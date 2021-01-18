@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -7,9 +7,9 @@ import {Observable} from 'rxjs';
 })
 export class CountriesService {
   readonly countriesUrl = 'https://restcountries.eu/rest/v2/all';
-  readonly countriesAlphaCodeUrl = 'https://restcountries.eu/rest/v2/alpha/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getCountries(): Observable<object> {
     const httpOptions: object = {

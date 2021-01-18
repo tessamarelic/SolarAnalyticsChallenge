@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {CountriesModule} from './features/countries/countries.module';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -16,9 +18,15 @@ import {CountriesModule} from './features/countries/countries.module';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    CountriesModule
+    CountriesModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    MatButtonModule,
+    MatIconModule
+  ]
 })
 export class AppModule { }

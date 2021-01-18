@@ -4,8 +4,19 @@ html, body {
   height: 100%;
   margin: auto;
   font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
-  background-color: hsl(0, 0%, 98%);
+  background-color: var(--background-default);
+  color: var(--text-default);
   max-width: 1440px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: var(--element-default);
+  color: var(--text-default);
+}
+
+.mat-card {
+  background-color: var(--element-default);
+  color: var(--text-default);
 }
 
 .font-light {
@@ -23,26 +34,16 @@ html, body {
   font-family: 'Nunito Sans', sans-serif, "Helvetica Neue";
 }
 
-.white {
-  background-color: hsl(0, 0%, 100%);
+:root {
+  --background-default: hsl(0, 0%, 100%);
+  --text-default: hsl(200, 15%, 8%);
+  --element-default: hsl(0, 0%, 100%);
+  --input-default: hsl(0, 0%, 52%);
+
+  --background-dark: hsl(207, 26%, 17%);
+  --text-dark: hsl(0, 0%, 100%);
+  --element-dark:  hsl(209, 23%, 22%);
+  --input-dark: hsl(0, 0%, 100%);
 }
 
-.light-grey {
-  background-color: hsl(0, 0%, 98%);
-}
 
-.dark-grey-light-mode-input {
-  color: hsl(0, 0%, 52%);
-}
-
-.dark-blue-light-mode-text {
-  color: hsl(200, 15%, 8%);
-}
-
-.dark-blue-dark-mode-background {
-  background-color: hsl(207, 26%, 17%);
-}
-
-.dark-blue-dark-mode-elements {
-  background-color: hsl(209, 23%, 22%);
-}

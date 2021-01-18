@@ -43,10 +43,10 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     }
     this.countrySubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
       .subscribe(countries => {
-      this.listOfCountries = countries as Country[];
-      this.countryToDisplay = this.listOfCountries.find(country => country.alpha3Code === this.selectedCountryCode);
-      this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
-    });
+        this.listOfCountries = countries as Country[];
+        this.countryToDisplay = this.listOfCountries.find(country => country.alpha3Code === this.selectedCountryCode);
+        this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
+      });
   }
 
   navigateBack(): void {
