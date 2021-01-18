@@ -11,7 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
     TopPanelComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   exports: [
     TopPanelComponent

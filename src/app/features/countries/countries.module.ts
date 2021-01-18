@@ -29,7 +29,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatOptionModule,
     MatSelectModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    MatIconModule
   ],
   exports: [
     HomeComponent,
