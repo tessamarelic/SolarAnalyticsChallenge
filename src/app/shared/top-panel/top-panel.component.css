@@ -9,6 +9,7 @@
     background-color: var(--element-default);;
     border-bottom: rgba(220, 220, 220, .4) solid 4px;
     justify-content: space-between;
+    margin: auto;
   }
 
 @media only screen and (max-width: 375px) {
