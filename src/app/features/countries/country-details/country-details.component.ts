@@ -31,12 +31,12 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.countrySubscription = this.countryProvider.getCountry().subscribe(country => {
       this.countryToDisplay = country;
+      this.selectedCountryCode = this.countryToDisplay.alpha3Code;
       this.createListOfCodes(this.countryToDisplay);
       if (this.countryToDisplay.borders.length > 0) {
         this.getCountriesByCode();
       } else {
         this.hasBorderCountries = false;
-        this.listOfCountries.push(this.countryToDisplay);
       }
     });
   }
@@ -58,8 +58,8 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     this.countriesSubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
       .subscribe(countries => {
         if (!!countries){
-          this.borderCountries = countries as Country[];
           this.listOfCountries = countries as Country[];
+          this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
         }
         this.listOfCountries.push(this.countryToDisplay);
       }, error => {
