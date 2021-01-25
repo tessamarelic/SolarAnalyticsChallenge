@@ -3,6 +3,7 @@ import {Subscription} from 'rxjs';
 import {Country} from '../../../models/country.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CountriesService} from '../../../services/countries.service';
+import {CountryProviderService} from '../../../services/country-provider.service';
 
 @Component({
   selector: 'app-country-details',
@@ -12,28 +13,41 @@ import {CountriesService} from '../../../services/countries.service';
 export class CountryDetailsComponent implements OnInit, OnDestroy {
   countryToDisplay = new Country();
   countrySubscription = new Subscription();
+  countriesSubscription = new Subscription();
   selectedCountryCode = '';
   listOfCodes = Array<string>();
   listOfCountries = Array<Country>();
   borderCountries = Array<Country>();
+  hasBorderCountries = true;
 
   constructor(
     private countriesService: CountriesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private countryProvider: CountryProviderService
   ) {
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      this.listOfCodes = params.getAll('codes');
-      this.selectedCountryCode = this.listOfCodes[0];
-      this.getCountriesByCode();
+    this.countrySubscription = this.countryProvider.getCountry().subscribe(country => {
+      this.countryToDisplay = country;
+      this.createListOfCodes(this.countryToDisplay);
+      if (this.countryToDisplay.borders.length > 0) {
+        this.getCountriesByCode();
+      } else {
+        this.hasBorderCountries = false;
+        this.listOfCountries.push(this.countryToDisplay);
+      }
     });
   }
 
   ngOnDestroy(): void {
     this.countrySubscription.unsubscribe();
+    this.countriesSubscription.unsubscribe();
+  }
+
+  createListOfCodes(selectedCountry: Country): void{
+    this.listOfCodes = [...selectedCountry.borders];
   }
 
   getCountriesByCode(): void {
@@ -41,11 +55,15 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     for (const code of this.listOfCodes) {
       codeAPIParamString += `${code};`;
     }
-    this.countrySubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
+    this.countriesSubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
       .subscribe(countries => {
-        this.listOfCountries = countries as Country[];
-        this.countryToDisplay = this.listOfCountries.find(country => country.alpha3Code === this.selectedCountryCode);
-        this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
+        if (!!countries){
+          this.borderCountries = countries as Country[];
+          this.listOfCountries = countries as Country[];
+        }
+        this.listOfCountries.push(this.countryToDisplay);
+      }, error => {
+        console.error(error);
       });
   }
 

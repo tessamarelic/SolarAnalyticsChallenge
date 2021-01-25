@@ -10,15 +10,28 @@
   padding: 0 !important;
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 375px) and (orientation: portrait) {
   .custom.mat-card {
     margin-left: 20px !important;
+    margin-right: 20px !important;
     margin-top: 60px !important;
     height: 325px;
     width: auto;
     padding: 0 !important;
   }
 }
+
+@media screen and (max-device-width: 800px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  .custom.mat-card {
+    margin-left: 25% !important;
+    margin-right: 25% !important;
+    margin-top: 60px !important;
+    height: 325px;
+    width: 60%;
+    padding: 0 !important;
+  }
+}
+
 
 img {
   width: 100%;
@@ -38,7 +51,7 @@ img {
   .body {
     font-size: 14px;
     font-weight: 300;
-    margin: 0 20px 0 0;
+    margin: 0 0 0 0;
   }
 }
 
@@ -123,7 +136,7 @@ input {
 }
 
 ::ng-deep .mat-select-value-text {
-  color: var(--input-default);
+  color: var(--text-default);
 }
 
 

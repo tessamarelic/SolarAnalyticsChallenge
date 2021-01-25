@@ -4,24 +4,25 @@ import {Observable, of, Subscription} from 'rxjs';
 import {Country} from '../../../models/country.model';
 import {FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CountryProviderService} from '../../../services/country-provider.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   countries = new Array<Country>();
   filteredListOfCountries = new Observable<Country[]>();
   searchFormControl = new FormControl('');
   selectRegionFormControl = new FormControl('');
   listOfRegions = new Array<string>();
-  countriesSubscription = new Subscription();
 
   constructor(
     private countriesService: CountriesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private countryProvider: CountryProviderService
   ) {
   }
 
@@ -30,13 +31,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCountriesData();
   }
 
-  ngOnDestroy(): void {
-    this.countriesSubscription.unsubscribe();
-  }
-
   getCountriesData(): void {
-    this.countriesSubscription = this.countriesService.getCountries().subscribe(countries => {
-      this.countries = countries as Country[];
+      this.countries = this.route.snapshot.data.countries as Country[];
       const setOfRegions = new Set<string>();
       for (const country of this.countries) {
         if (!!country.region) {
@@ -45,9 +41,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
       this.listOfRegions = Array.from(setOfRegions).sort();
       this.filteredListOfCountries = of(this.countries);
-    }, error => {
-      console.error(error);
-    });
   }
 
   filterCountriesList(): void {
@@ -76,8 +69,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  showCountryDetails(country: Country): void {
-    const codeList = [country.alpha3Code, ...country.borders];
-    this.router.navigate(['country-details'], {queryParams: {codes: codeList}});
+  showCountryDetails(selectedCountry: Country): void {
+    this.countryProvider.setCountry(selectedCountry);
+    this.router.navigate(['country-details']);
   }
 }

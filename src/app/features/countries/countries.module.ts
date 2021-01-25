@@ -13,6 +13,7 @@ import {CountryDetailsComponent} from './country-details/country-details.compone
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
+import {CountryProviderService} from '../../services/country-provider.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule
   ],
   providers: [
-    CountriesService
-  ]
+    CountriesService,
+    CountryProviderService]
 })
 export class CountriesModule { }

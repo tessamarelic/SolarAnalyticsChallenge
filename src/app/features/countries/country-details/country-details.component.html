@@ -56,7 +56,9 @@
                 {{borderCountry.name}}
               </button>
             </span>
-            <button mat-raised-button></button>
+            <div *ngIf="hasBorderCountries === false">
+              None
+            </div>
           </div>
         </div>
 

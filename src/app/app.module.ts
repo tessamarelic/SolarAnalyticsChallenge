@@ -5,8 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {CountriesModule} from './features/countries/countries.module';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import {CountryProviderService} from './services/country-provider.service';
 
 
 @NgModule({
