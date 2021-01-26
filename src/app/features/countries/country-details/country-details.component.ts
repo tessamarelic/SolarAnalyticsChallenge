@@ -47,7 +47,7 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   }
 
   createListOfCodes(selectedCountry: Country): void{
-    this.listOfCodes = [...selectedCountry.borders];
+    this.listOfCodes = selectedCountry.borders;
   }
 
   getCountriesByCode(): void {
