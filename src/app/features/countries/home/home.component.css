@@ -106,7 +106,7 @@ input {
   }
 }
 
-.option-text {
+.mat-option-text {
   color: var(--text-default);
 }
 
@@ -135,8 +135,13 @@ input {
   color: var(--input-default);
 }
 
-::ng-deep .mat-select-value-text {
+::ng-deep .mat-select-value-text{
   color: var(--text-default);
+}
+
+::ng-deep .mat-select-panel:hover{
+  background-color: var(--element-default) !important;
+  color: var(--text-default) !important;
 }
 
 
