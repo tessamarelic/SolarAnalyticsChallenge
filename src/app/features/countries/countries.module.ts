@@ -14,6 +14,10 @@ import {RouterModule} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
 import {CountryProviderService} from '../../services/country-provider.service';
+import { StoreModule } from '@ngrx/store';
+import * as fromCountries from './reducers/country.reducers';
+import {CountriesResolver} from './countries.resolver';
+import {countryReducer} from './reducers/country.reducers';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import {CountryProviderService} from '../../services/country-provider.service';
     RouterModule,
     SharedModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    StoreModule.forFeature(fromCountries.countriesFeatureKey, countryReducer)
   ],
   exports: [
     HomeComponent,
@@ -47,6 +52,7 @@ import {CountryProviderService} from '../../services/country-provider.service';
   ],
   providers: [
     CountriesService,
-    CountryProviderService]
+    CountryProviderService,
+    CountriesResolver]
 })
 export class CountriesModule { }

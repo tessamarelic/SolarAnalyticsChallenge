@@ -123,5 +123,17 @@
       }
     }
   },
-  "defaultProject": "SolarAnalyticsChallenge"
+  "defaultProject": "SolarAnalyticsChallenge",
+  "schematics": {
+    "@ngrx/schematics:component": {
+      "prefix": "",
+      "styleext": "scss"
+    },
+    "@ngrx/schematics:directive": {
+      "prefix": ""
+    }
+  },
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

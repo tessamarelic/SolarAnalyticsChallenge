@@ -8,6 +8,9 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
+    resolve: {
+      countries: CountriesResolver
+    },
     pathMatch: 'full'
   },
   {

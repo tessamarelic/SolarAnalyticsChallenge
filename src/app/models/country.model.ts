@@ -3,6 +3,7 @@ import {Language} from './language.model';
 import {RegionalBloc} from './regionalBloc.model';
 
 export class Country {
+  id = 0;
   alpha2Code = '';
   alpha3Code = '';
   altSpelling = new Array<string>();
