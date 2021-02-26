@@ -24,9 +24,6 @@ export class CountriesService {
          return data as Country[];
         })
       );
-    countries.subscribe(country => {
-      console.log(country);
-    });
     return countries;
   }
 

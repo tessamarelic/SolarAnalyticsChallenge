@@ -11,12 +11,20 @@ import {CountriesActions} from '../action-types';
 
 export const countriesFeatureKey = 'countries';
 
+export function selectCountryId(country: Country): number {
+  return +country.numericCode;
+}
+
 export interface CountriesState extends EntityState<Country>{
   allCountriesLoaded: boolean;
+  selectCountryId: number | null;
 }
 
 // entity adapter has all crude ops attached
-export const adapter = createEntityAdapter<Country>();
+export const adapter = createEntityAdapter<Country>({
+  selectId: selectCountryId,
+  sortComparer: false
+});
 
 // set entity initial state
 export const initialCountriesState = adapter.getInitialState({
@@ -38,4 +46,3 @@ export const {
   selectAll
 } = adapter.getSelectors();
 
-// export const metaReducers: MetaReducer<CountriesState>[] = !environment.production ? [] : [];

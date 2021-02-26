@@ -25,7 +25,6 @@ import {CountriesResolver} from './features/countries/countries.resolver';
     AppRoutingModule,
     HttpClientModule,
     CountriesModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreModule.forRoot(reducers,
       { metaReducers,
         runtimeChecks : {
@@ -35,7 +34,7 @@ import {CountriesResolver} from './features/countries/countries.resolver';
           strictStateSerializability: true
         }
       }),
-
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot({
         stateKey: 'router',

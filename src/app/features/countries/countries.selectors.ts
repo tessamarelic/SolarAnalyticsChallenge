@@ -14,8 +14,19 @@ export const areCountriesLoaded = createSelector(
   state => state.allCountriesLoaded
 );
 
+
 export const selectRegions = createSelector(
   selectAllCountries,
   regions =>  regions.map(country => country.region),
+);
+
+export const selectCountryById = (id: string) => createSelector(
+  selectAllCountries,
+  countries =>  countries[id]
+);
+
+export const selectCountriesByIds = (ids: Array<string>) => createSelector(
+  selectAllCountries,
+  countries =>  ids.filter(id => countries[id])
 );
 

@@ -14,12 +14,13 @@ import {selectAllCountries, selectRegions} from '../countries.selectors';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   countries = new Array<Country>();
   filteredListOfCountries = new Observable<Country[]>();
   searchFormControl = new FormControl('');
   selectRegionFormControl = new FormControl('');
   listOfRegions = new Array<string>();
+  subscriptions = new Map<string, Subscription>();
 
   constructor(
     private countriesService: CountriesService,
@@ -35,24 +36,22 @@ export class HomeComponent implements OnInit {
     this.getCountriesData();
   }
 
+   ngOnDestroy(): void{
+      for (const subName in this.subscriptions) {
+        this.subscriptions[subName].unsubscribe();
+      }
+   }
+
   getCountriesData(): void {
-      // this.countries = this.route.snapshot.data.countries as Country[];
-      // const setOfRegions = new Set<string>();
-      // for (const country of this.countries) {
-      //   if (!!country.region) {
-      //     setOfRegions.add(country.region);
-      //   }
-      // }
-    this.store.pipe(select(selectAllCountries)).subscribe(countries => {
-      console.log(countries);
+    this.subscriptions.set('allCountries', this.store.pipe(select(selectAllCountries)).subscribe(countries => {
       this.countries = countries;
       this.filteredListOfCountries = of(this.countries);
-    });
-      // this.listOfRegions = Array.from(setOfRegions).sort();
-    this.store.pipe(select(selectRegions)).subscribe(regions => {
+    }));
+
+    this.subscriptions.set('regions', this.store.pipe(select(selectRegions)).subscribe(regions => {
       const setOfRegions = new Set(regions);
-      this.listOfRegions = Array.from(regions);
-      });
+      this.listOfRegions = Array.from(setOfRegions).sort();
+      }));
   }
 
   filterCountriesList(): void {
@@ -82,7 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   showCountryDetails(selectedCountry: Country): void {
-    this.countryProvider.setCountry(selectedCountry);
-    this.router.navigate(['country-details']);
+    // this.countryProvider.setCountry(selectedCountry);
+    this.router.navigate(['country-details', selectedCountry.alpha3Code]);
   }
 }

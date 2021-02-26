@@ -8,9 +8,6 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    resolve: {
-      countries: CountriesResolver
-    },
     pathMatch: 'full'
   },
   {
@@ -21,7 +18,7 @@ export const routes: Routes = [
     }
   },
   {
-    path: 'country-details',
+    path: 'country-details/:id',
     component: CountryDetailsComponent
   },
 

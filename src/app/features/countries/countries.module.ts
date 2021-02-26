@@ -18,6 +18,8 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCountries from './reducers/country.reducers';
 import {CountriesResolver} from './countries.resolver';
 import {countryReducer} from './reducers/country.reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {CountriesEffects} from './countries.effects';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {countryReducer} from './reducers/country.reducers';
     SharedModule,
     MatIconModule,
     MatButtonModule,
-    StoreModule.forFeature(fromCountries.countriesFeatureKey, countryReducer)
+    StoreModule.forFeature(fromCountries.countriesFeatureKey, countryReducer),
+    EffectsModule.forFeature([CountriesEffects])
   ],
   exports: [
     HomeComponent,
@@ -52,7 +55,6 @@ import {countryReducer} from './reducers/country.reducers';
   ],
   providers: [
     CountriesService,
-    CountryProviderService,
-    CountriesResolver]
+    CountryProviderService]
 })
 export class CountriesModule { }
