@@ -1,6 +1,7 @@
 import * as fromCountries from './reducers/country.reducers';
-import {createFeatureSelector, createSelector, MemoizedSelector} from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {CountriesState} from './reducers/country.reducers';
+import {Country} from '../../models/country.model';
 
 export const selectCountriesState = createFeatureSelector<CountriesState>('countries');
 
@@ -20,13 +21,24 @@ export const selectRegions = createSelector(
   regions =>  regions.map(country => country.region),
 );
 
-export const selectCountryById = (id: string) => createSelector(
+export const selectCountryById = (id) => createSelector(
   selectAllCountries,
-  countries =>  countries[id]
+  (countries) =>  {
+    return countries.find(country => country.numericCode === id);
+  }
 );
 
-export const selectCountriesByIds = (ids: Array<string>) => createSelector(
+export const selectCountriesByIds = (ids) => createSelector(
   selectAllCountries,
-  countries =>  ids.filter(id => countries[id])
+  (countries) => {
+    const newCountries = Array<Country>();
+    for (const country of countries){
+      const value = ids.find(code => code === country.alpha3Code);
+      if (!!value){
+        newCountries.push(country);
+      }
+    }
+    return newCountries;
+  }
 );
 

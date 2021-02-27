@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
    ngOnDestroy(): void{
-      for (const subName in this.subscriptions) {
-        this.subscriptions[subName].unsubscribe();
+      for (const [key, value] of Object.entries(this.subscriptions)) {
+        this.subscriptions[key].unsubscribe();
       }
    }
 
@@ -82,6 +82,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   showCountryDetails(selectedCountry: Country): void {
     // this.countryProvider.setCountry(selectedCountry);
-    this.router.navigate(['country-details', selectedCountry.alpha3Code]);
+    this.router.navigate(['country-details', selectedCountry.numericCode]);
   }
 }

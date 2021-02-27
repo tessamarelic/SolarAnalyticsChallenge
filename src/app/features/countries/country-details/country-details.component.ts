@@ -6,8 +6,8 @@ import {CountriesService} from '../../../services/countries.service';
 import {CountryProviderService} from '../../../services/country-provider.service';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../reducers';
-import {selectAllCountries, selectCountryById, selectRegions} from '../countries.selectors';
-import {map} from 'rxjs/operators';
+import {selectAllCountries, selectCountriesByIds, selectCountryById, selectRegions} from '../countries.selectors';
+import {count, map, take} from 'rxjs/operators';
 
 
 @Component({
@@ -15,16 +15,13 @@ import {map} from 'rxjs/operators';
   templateUrl: './country-details.component.html',
   styleUrls: ['./country-details.component.css']
 })
-export class CountryDetailsComponent implements OnInit, OnDestroy {
+export class CountryDetailsComponent implements OnInit {
   countryToDisplay = new Country();
-  countrySubscription = new Subscription();
-  countriesSubscription = new Subscription();
   selectedCountryCode = '';
   listOfCodes = Array<string>();
   listOfCountries = Array<Country>();
   borderCountries = Array<Country>();
   hasBorderCountries = true;
-  subscriptions = new Map<string, Subscription>();
   countries = Array<Country>();
 
   constructor(
@@ -37,61 +34,22 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    this.subscriptions.set('router', this.route.params.subscribe(id => {
-      console.log(id);
-      this.getSelectedCountry(id.toString());
-    }));
-    // this.countrySubscription = this.countryProvider.getCountry().subscribe(country => {
-    //   this.countryToDisplay = country;
-    //   this.selectedCountryCode = this.countryToDisplay.alpha3Code;
-    //   this.createListOfCodes(this.countryToDisplay);
-    //   if (this.countryToDisplay.borders.length > 0) {
-    //     this.getCountriesByCode();
-    //   } else {
-    //     this.hasBorderCountries = false;
-    //   }
-    // });
-  }
-
-  ngOnDestroy(): void {
-    for (const subName in this.subscriptions) {
-      this.subscriptions[subName].unsubscribe();
-    }
+    this.route.params.pipe(take(1)).subscribe(param => {
+      this.getSelectedCountry(param.id);
+    });
   }
 
   getSelectedCountry(countryId: string): void {
-    // this.subscriptions.set('selectedCountry', this.store.pipe(
-    //   select(selectCountryById, {id}))
-    // .subscribe(country => {
-    //   console.log(country);
-    //   this.countryToDisplay = country as unknown as Country;
-    //   this.selectedCountryCode = this.countryToDisplay.alpha3Code;
-      // if (this.countryToDisplay.borders.length) {
-      //   this.getCountriesByCode(this.countryToDisplay.borders);
-      // }
-    // }));
-    // this.store.pipe(
-    //   select(selectCountryById, {id: counryId}))
-    //   .subscribe(country => {
-    //     console.log(country.projector);
-    //     this.countryToDisplay = country as unknown as Country;
-    //     this.selectedCountryCode = this.countryToDisplay.alpha3Code;
-    //     if (this.countryToDisplay.borders.length) {
-    //       this.getCountriesByIds(this.countryToDisplay.borders);
-    //     }
-    //   });
-
-    this.store.pipe(
-      select(selectAllCountries))
-      .subscribe(countries => {
-        this.countries = countries;
-        this.countryToDisplay = countries.find(country => country.alpha3Code === countryId);
+    this.store.select(
+      selectCountryById(countryId))
+      .pipe(take(1))
+      .subscribe(val => {
+        this.countryToDisplay = val;
         this.selectedCountryCode = this.countryToDisplay.alpha3Code;
         if (this.countryToDisplay.borders.length) {
           this.getCountriesByIds(this.countryToDisplay.borders);
         }
-      });
+});
   }
 
   createListOfCodes(selectedCountry: Country): void{
@@ -99,37 +57,15 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
   }
 
   getCountriesByIds(countryIds: Array<string>): void {
-    // let codeAPIParamString = '';
-    // for (const code of this.listOfCodes) {
-    //   codeAPIParamString += `${code};`;
-    // }
-    // this.countriesSubscription = this.countriesService.getCountriesByAlphaCode(codeAPIParamString)
-    //   .subscribe(countries => {
-    //     if (!!countries){
-    //       this.listOfCountries = countries as Country[];
-    //       this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
-    //     }
-    //     this.listOfCountries.push(this.countryToDisplay);
-    //   }, error => {
-    //     console.error(error);
-    //   });
-    // this.store.pipe(
-    //   select(selectCountriesByIds, {id: countryIds}))
-    //   .subscribe(countries => {
-    //     if (!!countries) {
-    //       this.listOfCountries = countries as unknown as Country[];
-    //       this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
-    //       this.listOfCountries.push(this.countryToDisplay);
-    //     }
-    //   });
-        for (const country of this.countries){
-          const count = countryIds.find(code => code === country.alpha3Code);
-          if (!!count) {
-            this.listOfCountries.push(country);
-          }
+    this.store.select(
+      selectCountriesByIds(countryIds)).pipe(take(1))
+      .subscribe(countries => {
+        if (!!countries) {
+          this.listOfCountries = countries;
+          this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
+          this.listOfCountries.push(this.countryToDisplay);
         }
-        this.borderCountries = this.listOfCountries.filter(country => country.alpha3Code !== this.selectedCountryCode);
-        this.listOfCountries.push(this.countryToDisplay);
+      });
   }
 
   navigateBack(): void {

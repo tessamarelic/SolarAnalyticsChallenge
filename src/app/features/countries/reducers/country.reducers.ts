@@ -1,10 +1,4 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector, createReducer,
-  createSelector,
-  MetaReducer, on
-} from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {Country} from '../../../models/country.model';
 import {createEntityAdapter, EntityState} from '@ngrx/entity';
 import {CountriesActions} from '../action-types';
@@ -41,6 +35,7 @@ export const countryReducer = createReducer(
       allCountriesLoaded: true}
     ))
 );
+
 
 export const {
   selectAll
