@@ -19,7 +19,10 @@ export const routes: Routes = [
   },
   {
     path: 'country-details/:id',
-    component: CountryDetailsComponent
+    component: CountryDetailsComponent,
+    resolve: {
+      countries: CountriesResolver
+    }
   },
 
 ];
