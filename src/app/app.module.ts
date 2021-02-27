@@ -13,6 +13,8 @@ import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {CountriesResolver} from './features/countries/countries.resolver';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import {CountriesResolver} from './features/countries/countries.resolver';
       }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
+    EntityDataModule.forRoot({}),
     StoreRouterConnectingModule.forRoot({
         stateKey: 'router',
         routerState: RouterState.Minimal
