@@ -13,7 +13,7 @@ export class CountriesService {
   constructor(private http: HttpClient) {
   }
 
-  getCountries(): Observable<any> {
+  getCountries(): Observable<Country[]> {
     const httpOptions: object = {
       observe: 'response' as 'body',
       responseType: 'json'

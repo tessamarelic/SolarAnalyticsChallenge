@@ -8,6 +8,7 @@ import {CountryProviderService} from '../../../services/country-provider.service
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../reducers';
 import {selectAllCountries, selectRegions} from '../countries.selectors';
+import {CountryEntityService} from '../../../services/countries-entity.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private countryProvider: CountryProviderService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private countryEntityService: CountryEntityService
   ) {
   }
 
@@ -43,15 +45,18 @@ export class HomeComponent implements OnInit, OnDestroy {
    }
 
   getCountriesData(): void {
-    this.subscriptions.set('allCountries', this.store.pipe(select(selectAllCountries)).subscribe(countries => {
+    this.subscriptions.set('allCountries', this.countryEntityService.entities$.subscribe(countries => {
       this.countries = countries;
       this.filteredListOfCountries = of(this.countries);
+      const regions = new Set(this.countries.map(country => country.region));
+      // const setOfRegions = new Set(regions);
+      this.listOfRegions = Array.from(regions).sort();
     }));
 
-    this.subscriptions.set('regions', this.store.pipe(select(selectRegions)).subscribe(regions => {
-      const setOfRegions = new Set(regions);
-      this.listOfRegions = Array.from(setOfRegions).sort();
-      }));
+    // this.subscriptions.set('regions', this.store.pipe(select(selectRegions)).subscribe(regions => {
+    //   const setOfRegions = new Set(regions);
+    //   this.listOfRegions = Array.from(setOfRegions).sort();
+    //   }));
   }
 
   filterCountriesList(): void {

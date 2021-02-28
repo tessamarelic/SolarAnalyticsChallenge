@@ -8,6 +8,7 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../reducers';
 import {selectAllCountries, selectCountriesByIds, selectCountryById, selectRegions} from '../countries.selectors';
 import {count, map, take} from 'rxjs/operators';
+import {CountryEntityService} from '../../../services/countries-entity.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class CountryDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private countryProvider: CountryProviderService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private countriesEntityService: CountryEntityService
   ) {
   }
 

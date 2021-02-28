@@ -20,6 +20,18 @@ import {CountriesResolver} from './countries.resolver';
 import {countryReducer} from './reducers/country.reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {CountriesEffects} from './countries.effects';
+import {EntityDataService, EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
+import {CountriesDataService} from '../../services/countries-data.service';
+import {CountryEntityService} from '../../services/countries-entity.service';
+
+
+const entityMetadata: EntityMetadataMap = {
+  Country: {
+    entityDispatcherOptions: {
+      optimisticUpdate: true
+    }
+  }
+};
 
 @NgModule({
   declarations: [
@@ -55,6 +67,18 @@ import {CountriesEffects} from './countries.effects';
   ],
   providers: [
     CountriesService,
-    CountryProviderService]
+    CountryProviderService,
+    CountriesDataService,
+    CountryEntityService]
 })
-export class CountriesModule { }
+export class CountriesModule {
+
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private countriesDataService: CountriesDataService
+  ) {
+    eds.registerMetadataMap(entityMetadata);
+    entityDataService.registerService('Country', this.countriesDataService);
+  }
+}

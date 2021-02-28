@@ -15,6 +15,7 @@ import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {CountriesResolver} from './features/countries/countries.resolver';
 import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
+import {CountryResolver} from './services/country.resolver';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { entityConfig } from './entity-metadata';
     }
     )
   ],
-  providers: [],
+  providers: [CountryResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
