@@ -59,6 +59,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
+  
   filterCountriesByRegion(): void {
     const region = this.selectRegionFormControl.value;
     if (this.checkValueToFilter(region)) {
