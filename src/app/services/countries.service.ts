@@ -6,7 +6,8 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class CountriesService {
-  readonly countriesUrl = 'https://restcountries.eu/rest/v2/all';
+  // readonly countriesUrl = 'https://restcountries.eu/rest/v2/all';
+  readonly countriesUrl = 'https://restcountries.com/v2/all';
 
   constructor(private http: HttpClient) {
   }
@@ -24,6 +25,7 @@ export class CountriesService {
       observe: 'response' as 'body',
       responseType: 'json'
     };
-    return this.http.get(`https://restcountries.eu/rest/v2/alpha?codes=${stringOfcodes}`);
+    // return this.http.get(`https://restcountries.eu/rest/v2/alpha?codes=${stringOfcodes}`);
+    return this.http.get(`https://restcountries.com/v2/alpha?codes=${stringOfcodes}`);
   }
 }
